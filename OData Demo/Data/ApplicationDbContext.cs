@@ -38,7 +38,7 @@ namespace OData_Demo.Data
              {
                  Id = 1,
                  Name = "Ahmed Kassem",
-                 Code = "234",
+                 Code = 234,
                  SalaryStatus = "valid",
                  HiringDate = DateTime.Now,
                  JobCode = "5712"
@@ -48,7 +48,7 @@ namespace OData_Demo.Data
              {
                  Id = 2,
                  Name = "Mohamed Kassem",
-                 Code = "235",
+                 Code = 235,
                  SalaryStatus = "valid",
                  HiringDate = DateTime.Now,
                  JobCode = "5712"
@@ -59,7 +59,7 @@ namespace OData_Demo.Data
              {
                  Id = 3,
                  Name = "Mazen Ali",
-                 Code = "236",
+                 Code = 236,
                  SalaryStatus = "valid",
                  HiringDate = DateTime.Now,
                  JobCode = "5896"
@@ -69,7 +69,7 @@ namespace OData_Demo.Data
              {
                  Id = 4,
                  Name = "Taha Emad",
-                 Code = "237",
+                 Code = 237,
                  SalaryStatus = "unvalid",
                  HiringDate = DateTime.Now,
                  JobCode = "5476"

@@ -24,6 +24,18 @@ namespace OData_Demo.Repos.Repository
                _context.Employees.AsQueryable()
             .Where(c => c.Id == id);
         }
+        public bool IsCodeExist(int code)
+        {
+
+            return _context.Employees.Any(e => e.Code == code);
+
+        }
+        public int GetEmployeeMaxCode()
+        {
+
+            int maxCode = _context.Employees.Any() ? _context.Employees.Max(e => e.Code) : 0;
+            return (maxCode + 1);
+        }
         public void Create(Employee employee)
         {
             _context.Employees
@@ -42,6 +54,16 @@ namespace OData_Demo.Repos.Repository
                 .Remove(employee);
             _context.SaveChanges();
         }
+
+        //public string GetMaxCode()
+        //{
+
+        //    var maxCode = _context.Employees
+        //  .Select(e => int.TryParse(e.Code, out code) ? (int?)code : null)
+        //  .Max();
+
+        //    return maxCode;
+        //}
     }
 }
 

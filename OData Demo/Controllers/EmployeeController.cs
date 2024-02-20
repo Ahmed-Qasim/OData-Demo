@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
 using OData_Demo.Models;
 using OData_Demo.Repos;
 
@@ -27,11 +26,26 @@ namespace OData_Demo.Controllers
 
 
 
-        [EnableQuery]
+        //[EnableQuery]
+        //[HttpGet("{id}")]
+        //public SingleResult<Employee> Get([FromODataUri] int key)
+        //{
+        //    return SingleResult.Create(_EmpRepo.GetById(key));
+        //}
+
+
+
         [HttpGet("{id}")]
-        public SingleResult<Employee> Get([FromODataUri] int key)
+        public IActionResult Get(int id)
         {
-            return SingleResult.Create(_EmpRepo.GetById(key));
+            var employee = _EmpRepo.GetById(id);
+
+            if (employee == null)
+            {
+                return NotFound("Employee not found with ID: " + id);
+            }
+
+            return Ok(employee);
         }
 
 
@@ -42,8 +56,22 @@ namespace OData_Demo.Controllers
             {
                 return BadRequest(ModelState);
             }
-            _EmpRepo.Create(employee);
+            if (employee.Code != null && employee.Code != 0)
+            {
 
+
+                if (_EmpRepo.IsCodeExist(employee.Code))
+                {
+                    ModelState.AddModelError("Code", "Duplicate code");
+                    return BadRequest(ModelState);
+                }
+
+            }
+            else
+            {
+                employee.Code = _EmpRepo.GetEmployeeMaxCode();
+            }
+            _EmpRepo.Create(employee);
             return Created("employees", employee);
         }
 
